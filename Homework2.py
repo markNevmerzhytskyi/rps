@@ -2,33 +2,43 @@
 # Alternately, round down to the previous multiple of 10 if its rightmost digit is less than 5, so 12 rounds down to 10. Given 3 ints, a b c, return the sum of their rounded values.
 # To avoid code repetition, write a separate helper "def round10(num):" and call it 3 times. Write the helper entirely below and at the same indent level as round_sum().
 # round_sum(16, 17, 18) → 60
-# round_sum(12, 13, 14) → 30
-# round_sum(6, 4, 4) → 10
-
+# round_sum(12, 13, 14) → 30                  b = "16"
+# round_sum(6, 4, 4) → 10                     # last = b[-1]
+#                                             # print(last)
 
 def round_sum(x, y, j):
-    round(x + y + j)
-    print(round(x + y + j))
+    x = round_10(x)
+    y = round_10(y)
+    j = round_10(j)
+    D = x + y + j
+    print(D)
 
 
-round_sum(23.6, 45.7, 25.7)
+def round_10(b):  # x >, < or = 5 = 90                                      # last < 5 and round(sum)
+    b = str(b)
+    last = b[-1]
+    last = int(last)
+    b = int(b)
+    if last >= 5:
+        b += 10 - last
+    if last < 5:
+        b -= last
+
+    return b
 
 
-def round_10(x):  # x >, < or = 5 = 90
-
-    str(x)
-    return x
+round_sum(4, 6, 5)
 
 
-def round_15(y):
-    str(y)
-    return y
 
 
-def round_20(j):
 
-    str(j)
 
-    return j
+
+
+
+
+
+
 
 
