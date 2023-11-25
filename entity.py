@@ -5,8 +5,3 @@ class Entity:
         self.y = y
 
 
-ob = Entity(245, 150, "rock" "paper" "scissors")
-print(ob.x)
-print(ob.y)
-print(ob.name)
-
