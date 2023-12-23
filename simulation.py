@@ -21,13 +21,17 @@ class Simulation:
         while 1 + 1 == 2:
             self.scr.screen.fill((100, 100, 100))
             for rock in self.rocks:
-                rock.x += 0.01
-                rock.y -= 0.01
+                rock.x += rock.direction[0]
+                rock.y -= rock.direction[1]
                 pygame.draw.circle(self.scr.screen, self.rocks_color, (rock.x, rock.y), 5)
-            for i in self.papers:
-                pygame.draw.circle(self.scr.screen, self.papers_color, (i.x, i.y), 5)
-            for i in self.scissors:
-                pygame.draw.circle(self.scr.screen, self.scissors_color, (i.x, i.y), 5)
+            for paper in self.papers:
+                paper.x += paper.direction[0]
+                paper.y -= paper.direction[1]
+                pygame.draw.circle(self.scr.screen, self.papers_color, (paper.x, paper.y), 5)
+            for scissors in self.scissors:
+                scissors.x += scissors.direction[0]
+                scissors.y -= scissors.direction[1]
+                pygame.draw.circle(self.scr.screen, self.scissors_color, (scissors.x, scissors.y), 5)
             pygame.display.update()
 
             for event in pygame.event.get():
