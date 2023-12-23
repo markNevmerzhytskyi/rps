@@ -20,13 +20,16 @@ class Simulation:
         self.create_entity(500, 300, "scissors", 27)
         while 1 + 1 == 2:
             self.scr.screen.fill((100, 100, 100))
-            for i in self.rocks:
-                pygame.draw.circle(self.scr.screen, self.rocks_color, (i.x, i.y), 5)
+            for rock in self.rocks:
+                rock.x += 0.01
+                rock.y -= 0.01
+                pygame.draw.circle(self.scr.screen, self.rocks_color, (rock.x, rock.y), 5)
             for i in self.papers:
                 pygame.draw.circle(self.scr.screen, self.papers_color, (i.x, i.y), 5)
             for i in self.scissors:
                 pygame.draw.circle(self.scr.screen, self.scissors_color, (i.x, i.y), 5)
             pygame.display.update()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()

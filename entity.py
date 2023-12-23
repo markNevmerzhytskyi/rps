@@ -3,5 +3,8 @@ class Entity:
         self.name = name
         self.x = x
         self.y = y
+        self.direction = [3, 5, 100]
+
+
 
 
