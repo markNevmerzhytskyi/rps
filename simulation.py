@@ -23,6 +23,11 @@ class Simulation:
             for rock in self.rocks:
                 rock.x += rock.direction[0]
                 rock.y -= rock.direction[1]
+                for paper in self.papers:
+                    minus = rock.x - 10, rock.y - 10
+                    plus = rock.x + 10, rock.y + 10
+                    if paper.x == rock.x and paper.y == rock.y:
+                        print("Rock wins!")
                 pygame.draw.circle(self.scr.screen, self.rocks_color, (rock.x, rock.y), 5)
             for paper in self.papers:
                 paper.x += paper.direction[0]
@@ -48,6 +53,7 @@ class Simulation:
                 self.papers.append(entity)
             if name == "scissors":
                 self.scissors.append(entity)
+
 
 
 sim = Simulation()
