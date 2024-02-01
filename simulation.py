@@ -21,13 +21,16 @@ class Simulation:
         while 1 + 1 == 2:
             self.scr.screen.fill((100, 100, 100))
             for rock in self.rocks:
+                minus = rock.x - 10, rock.y - 10
+                plus = rock.x + 10, rock.y + 10
                 rock.x += rock.direction[0]
                 rock.y -= rock.direction[1]
                 for paper in self.papers:
-                    minus = rock.x - 10, rock.y - 10
-                    plus = rock.x + 10, rock.y + 10
-                    if paper.x == rock.x and paper.y == rock.y:
-                        print("Rock wins!")
+                    if paper.x < plus[0] and paper.x > minus[0] and paper.y < plus[1] and paper.y > minus[1]:
+                        print("Paper wins")
+                for scissors in self.scissors:
+                    if scissors.x < plus[0] and scissors.x > minus[0] and scissors.y < plus[1] and scissors.y > minus[1]:
+                        print("Rock wins")
                 pygame.draw.circle(self.scr.screen, self.rocks_color, (rock.x, rock.y), 5)
             for paper in self.papers:
                 paper.x += paper.direction[0]
