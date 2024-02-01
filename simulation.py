@@ -55,7 +55,6 @@ class Simulation:
                 self.scissors.append(entity)
 
 
-
 sim = Simulation()
 sim.infinite_loop()
 
