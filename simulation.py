@@ -36,6 +36,11 @@ class Simulation:
                 paper.x += paper.direction[0]
                 paper.y -= paper.direction[1]
                 pygame.draw.circle(self.scr.screen, self.papers_color, (paper.x, paper.y), 5)
+                for scissors in self.scissors:
+                    minus = paper.x - 10, paper.y - 10
+                    plus = paper.x + 10, paper.y + 10
+                    if scissors.x < plus[0] and scissors.x > minus[0] and scissors.y < plus[1] and scissors.y > minus[1]:
+                        print("Scissors wins!")
             for scissors in self.scissors:
                 scissors.x += scissors.direction[0]
                 scissors.y -= scissors.direction[1]
