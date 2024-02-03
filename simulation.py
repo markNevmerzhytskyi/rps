@@ -13,6 +13,12 @@ class Simulation:
         self.rocks_color = (67, 45, 45)
         self.papers_color = (150, 86, 56)
         self.scissors_color = (56, 99, 52)
+        self.scissors_texture = pygame.image.load('scissors.png')
+        self.scissors_texture = pygame.transform.scale (self.scissors_texture, (30, 30))
+        self.paper_texture = pygame.image.load('paper.png')
+        self.paper_texture = pygame.transform.scale(self.paper_texture, (30, 30))
+        self.rock_texture = pygame.image.load('rock.png')
+        self.rock_texture = pygame.transform.scale(self.rock_texture, (30, 30))
 
     def infinite_loop(self):
         self.create_entity(300, 450, "rock", 27)
@@ -25,17 +31,17 @@ class Simulation:
                 plus = rock.x + 10, rock.y + 10
                 rock.x += rock.direction[0]
                 rock.y -= rock.direction[1]
+                self.scr.screen.blit(self.rock_texture, (rock.x, rock.y))
                 for paper in self.papers:
                     if paper.x < plus[0] and paper.x > minus[0] and paper.y < plus[1] and paper.y > minus[1]:
                         print("Paper wins")
                 for scissors in self.scissors:
                     if scissors.x < plus[0] and scissors.x > minus[0] and scissors.y < plus[1] and scissors.y > minus[1]:
                         print("Rock wins")
-                pygame.draw.circle(self.scr.screen, self.rocks_color, (rock.x, rock.y), 5)
             for paper in self.papers:
                 paper.x += paper.direction[0]
                 paper.y -= paper.direction[1]
-                pygame.draw.circle(self.scr.screen, self.papers_color, (paper.x, paper.y), 5)
+                self.scr.screen.blit(self.paper_texture, (paper.x, paper.y))
                 for scissors in self.scissors:
                     minus = paper.x - 10, paper.y - 10
                     plus = paper.x + 10, paper.y + 10
@@ -44,7 +50,7 @@ class Simulation:
             for scissors in self.scissors:
                 scissors.x += scissors.direction[0]
                 scissors.y -= scissors.direction[1]
-                pygame.draw.circle(self.scr.screen, self.scissors_color, (scissors.x, scissors.y), 5)
+                self.scr.screen.blit(self.scissors_texture, (scissors.x, scissors.y))
             pygame.display.update()
 
             for event in pygame.event.get():
