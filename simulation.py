@@ -27,8 +27,8 @@ class Simulation:
         while 1 + 1 == 2:
             self.scr.screen.fill((100, 100, 100))
             for rock in self.rocks:
-                minus = rock.x - 10, rock.y - 10
-                plus = rock.x + 10, rock.y + 10
+                minus = rock.x - 30, rock.y - 30
+                plus = rock.x + 30, rock.y + 30
                 rock.x += rock.direction[0]
                 rock.y -= rock.direction[1]
                 self.scr.screen.blit(self.rock_texture, (rock.x, rock.y))
@@ -45,8 +45,8 @@ class Simulation:
                 paper.y -= paper.direction[1]
                 self.scr.screen.blit(self.paper_texture, (paper.x, paper.y))
                 for scissors in self.scissors:
-                    minus = paper.x - 10, paper.y - 10
-                    plus = paper.x + 10, paper.y + 10
+                    minus = paper.x - 30, paper.y - 30
+                    plus = paper.x + 30, paper.y + 30
                     if scissors.x < plus[0] and scissors.x > minus[0] and scissors.y < plus[1] and scissors.y > minus[1]:
                         print("Scissors wins!")
                         self.who_wins(scissors, paper)
@@ -62,22 +62,32 @@ class Simulation:
                     pygame.quit()
                     break
 
+    def Move_barrier(self, entity):
+        if entity.y >= 650:
+            entity.y -= 10
+        if entity.x >= 1500:
+            entity.x -= 10
+        if entity.y >= 0:
+            entity.y += 10
+        if entity.x >= 0:
+            entity.x += 10
 
     def who_wins(self, entity1, entity2):
-        if entity1 in self.rocks and entity2 in self.papers:
-            self.rocks.remove(entity1)
-        if entity1 in self.scissors and entity2 in self.papers:
-            self.scissors.remove(entity2)
-        if entity1 in self.rocks and entity2 in self.scissors:
-            self.scissors.remove(entity2)
-        if entity1 in self.scissors and entity2 in self.rocks:
-            self.scissors.remove(entity1)
-        if entity2 in self.scissors and entity1 in self.rocks:
-            self.scissors.remove(entity2)
-        if entity1 in self.papers and entity2 in self.rocks:
-            self.rocks.remove(entity2)
-        if entity1 in self.papers and entity2 in self.scissors:
-            self.scissors.remove(entity1)
+        if entity1 in self.rocks:
+            if entity2 in self.scissors:
+                self.scissors.remove(entity2)
+            if entity2 in self.papers:
+                self.rocks.remove(entity1)
+        if entity1 in self.scissors:
+            if entity2 in self.rocks:
+                self.scissors.remove(entity1)
+            if entity2 in self.papers:
+                self.papers.remove(entity2)
+        if entity1 in self.papers:
+            if entity2 in self.rocks:
+                self.rocks.remove(entity2)
+            if entity2 in self.scissors:
+                self.papers.remove(entity1)
 
 
 

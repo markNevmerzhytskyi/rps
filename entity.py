@@ -6,7 +6,7 @@ class Entity:
         self.name = name
         self.x = x
         self.y = y
-        self.direction = [random.uniform(-0.01, 0.01), (random.uniform(-0.01, 0.01))]
+        self.direction = [random.uniform(-0.10, 0.10), (random.uniform(-0.10, 0.10))]
 
 
 
