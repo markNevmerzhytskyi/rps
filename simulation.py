@@ -35,9 +35,11 @@ class Simulation:
                 for paper in self.papers:
                     if paper.x < plus[0] and paper.x > minus[0] and paper.y < plus[1] and paper.y > minus[1]:
                         print("Paper wins")
+                        self.who_wins(paper, rock)
                 for scissors in self.scissors:
                     if scissors.x < plus[0] and scissors.x > minus[0] and scissors.y < plus[1] and scissors.y > minus[1]:
                         print("Rock wins")
+                        self.who_wins(scissors, rock)
             for paper in self.papers:
                 paper.x += paper.direction[0]
                 paper.y -= paper.direction[1]
@@ -47,16 +49,38 @@ class Simulation:
                     plus = paper.x + 10, paper.y + 10
                     if scissors.x < plus[0] and scissors.x > minus[0] and scissors.y < plus[1] and scissors.y > minus[1]:
                         print("Scissors wins!")
+                        self.who_wins(scissors, paper)
             for scissors in self.scissors:
                 scissors.x += scissors.direction[0]
                 scissors.y -= scissors.direction[1]
                 self.scr.screen.blit(self.scissors_texture, (scissors.x, scissors.y))
             pygame.display.update()
 
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
+
+
+    def who_wins(self, entity1, entity2):
+        if entity1 in self.rocks and entity2 in self.papers:
+            self.rocks.remove(entity1)
+        if entity1 in self.scissors and entity2 in self.papers:
+            self.scissors.remove(entity2)
+        if entity1 in self.rocks and entity2 in self.scissors:
+            self.scissors.remove(entity2)
+        if entity1 in self.scissors and entity2 in self.rocks:
+            self.scissors.remove(entity1)
+        if entity2 in self.scissors and entity1 in self.rocks:
+            self.scissors.remove(entity2)
+        if entity1 in self.papers and entity2 in self.rocks:
+            self.rocks.remove(entity2)
+        if entity1 in self.papers and entity2 in self.scissors:
+            self.scissors.remove(entity1)
+
+
+
 
     def create_entity(self, x, y, name, n):
         for i in range(n):
