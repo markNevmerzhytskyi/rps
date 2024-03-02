@@ -31,6 +31,7 @@ class Simulation:
                 plus = rock.x + 30, rock.y + 30
                 rock.x += rock.direction[0]
                 rock.y -= rock.direction[1]
+                self.move_barrier(rock)
                 self.scr.screen.blit(self.rock_texture, (rock.x, rock.y))
                 for paper in self.papers:
                     if paper.x < plus[0] and paper.x > minus[0] and paper.y < plus[1] and paper.y > minus[1]:
@@ -43,6 +44,7 @@ class Simulation:
             for paper in self.papers:
                 paper.x += paper.direction[0]
                 paper.y -= paper.direction[1]
+                self.move_barrier(paper)
                 self.scr.screen.blit(self.paper_texture, (paper.x, paper.y))
                 for scissors in self.scissors:
                     minus = paper.x - 30, paper.y - 30
@@ -53,6 +55,7 @@ class Simulation:
             for scissors in self.scissors:
                 scissors.x += scissors.direction[0]
                 scissors.y -= scissors.direction[1]
+                self.move_barrier(scissors)
                 self.scr.screen.blit(self.scissors_texture, (scissors.x, scissors.y))
             pygame.display.update()
 
@@ -62,14 +65,23 @@ class Simulation:
                     pygame.quit()
                     break
 
-    def Move_barrier(self, entity):
-        if entity.y >= 650:
+    def move_barrier(self, entity):
+        if entity.y >= 600:
+            print(entity.direction)
+            entity.direction[1] = -entity.direction[1]
+            entity.direction[0] = -entity.direction[0]
             entity.y -= 10
-        if entity.x >= 1500:
+        if entity.x >= 1450:
+            entity.direction[0] = -entity.direction[0]
+            entity.direction[1] = -entity.direction[1]
             entity.x -= 10
-        if entity.y >= 0:
+        if entity.y <= 0:
+            entity.direction[1] = -entity.direction[1]
+            entity.direction[0] = -entity.direction[0]
             entity.y += 10
-        if entity.x >= 0:
+        if entity.x <= 0:
+            entity.direction[0] = -entity.direction[0]
+            entity.direction[1] = -entity.direction[1]
             entity.x += 10
 
     def who_wins(self, entity1, entity2):
@@ -88,6 +100,7 @@ class Simulation:
                 self.rocks.remove(entity2)
             if entity2 in self.scissors:
                 self.papers.remove(entity1)
+
 
 
 
