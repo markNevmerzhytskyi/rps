@@ -6,7 +6,9 @@ import random
 
 class Simulation:
     def __init__(self):
-        self.scr = Screen(1500, 650)
+        self.width = 1000
+        self.height = 650
+        self.scr = Screen(self.width, self.height)
         self.rocks = []
         self.papers = []
         self.scissors = []
@@ -19,13 +21,18 @@ class Simulation:
         self.paper_texture = pygame.transform.scale(self.paper_texture, (30, 30))
         self.rock_texture = pygame.image.load('rock.png')
         self.rock_texture = pygame.transform.scale(self.rock_texture, (30, 30))
+        pygame.font.init()
+        self.my_font = pygame.font.SysFont('Comic Sans MS', 50)
 
     def infinite_loop(self):
-        self.create_entity(300, 450, "rock", 27)
-        self.create_entity(100, 200, "paper", 27)
-        self.create_entity(500, 300, "scissors", 27)
+        self.create_entity(300, 450, "rock", 1)
+        self.create_entity(100, 200, "paper", 100)
+        self.create_entity(500, 300, "scissors", 0)
         while 1 + 1 == 2:
             self.scr.screen.fill((100, 100, 100))
+            if (not self.rocks and not self.papers) or (not self.papers and not self.scissors) or (not self.scissors and not self.rocks):
+                text_surface = self.my_font.render('Game over', False, (0, 0, 0))
+                self.scr.screen.blit(text_surface, (370, 250))
             for rock in self.rocks:
                 minus = rock.x - 30, rock.y - 30
                 plus = rock.x + 30, rock.y + 30
@@ -66,12 +73,12 @@ class Simulation:
                     break
 
     def move_barrier(self, entity):
-        if entity.y >= 600:
+        if entity.y >= self.height - 50:
             print(entity.direction)
             entity.direction[1] = -entity.direction[1]
             entity.direction[0] = -entity.direction[0]
             entity.y -= 10
-        if entity.x >= 1450:
+        if entity.x >= self.width - 50:
             entity.direction[0] = -entity.direction[0]
             entity.direction[1] = -entity.direction[1]
             entity.x -= 10
